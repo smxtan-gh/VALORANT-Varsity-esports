@@ -25,7 +25,7 @@ Ian - Sentinel/Initiator/Controller - Vyse/Omen/Harbor/Veto/Sova
 
 Leon - Duelist/Controller/Sometimes Initiator - Jett/Reyna/Yoru/Phoenix/Neon/Raze/Omen/Fade
 
-Sean - Duelist/Initiator - Jett/Skye
+Sean - Duelist/Initiator - Jett/Skye/Reyna
 
 
 Achievements:
