@@ -27,6 +27,3 @@ Leon - Duelist/Controller/Sometimes Initiator - Jett/Reyna/Yoru/Phoenix/Neon/Raz
 
 Sean - Duelist/Initiator - Jett/Skye/Reyna
 
-
-Achievements:
-???
