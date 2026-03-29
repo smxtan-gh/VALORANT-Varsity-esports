@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riordan Valorant Varsity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --purple:      #6a0dad;
+      --purple-mid:  #8b1fcf;
+      --purple-dim:  #4a0880;
+      --purple-glow: rgba(106,13,173,0.35);
+      --gold:        #f0c040;
+      --gold-dim:    #c49a20;
+      --gold-muted:  rgba(240,192,64,0.15);
+      --black:       #0c0c10;
+      --panel:       #13121a;
+      --surface:     #1c1a26;
+      --border:      #2a2638;
+      --border-gold: rgba(240,192,64,0.22);
+      --text:        #e6e0f8;
+      --muted:       #7a7090;
+      --white:       #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 58px;
+      background: rgba(12,12,16,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 3px;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-crest {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--purple-mid), var(--purple-dim));
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 900; letter-spacing: 0;
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+    }
+    .nav-name { line-height: 1; }
+    .nav-name small {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 3px;
+      color: var(--gold); text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 7px 18px;
+      background: transparent;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold); border-radius: 2px; cursor: pointer;
+      transition: all .2s;
+    }
+    .nav-badge:hover { background: var(--gold); color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 130px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    /* grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(106,13,173,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(106,13,173,0.07) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    /* purple glow top-right */
+    .hero-glow-a {
+      position: absolute; top: -180px; right: -180px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(106,13,173,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* gold glow bottom-left */
+    .hero-glow-b {
+      position: absolute; bottom: -100px; left: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,192,64,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 1100px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 2px;
+      background: var(--gold);
+    }
+    .hero-school {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(14px, 2vw, 18px); font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--purple-mid); margin-bottom: 8px;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 11vw, 150px);
+      line-height: 0.9; letter-spacing: 4px;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .hero-title .accent { color: var(--gold); }
+    .hero-title .dim { color: var(--purple-mid); }
+
+    /* Sean's quote */
+    .hero-quote {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin: 32px 0 48px;
+      padding: 20px 24px;
+      border-left: 3px solid var(--gold);
+      background: rgba(240,192,64,0.05);
+      max-width: 560px;
+    }
+    .hero-quote-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px; line-height: 0.7;
+      color: var(--gold); opacity: 0.4;
+      flex-shrink: 0;
+    }
+    .hero-quote-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 600; font-style: italic;
+      letter-spacing: 1px; color: var(--text); line-height: 1.3;
+    }
+    .hero-quote-attr {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-top: 8px;
+    }
+
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 36px;
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px; letter-spacing: 2px;
+      color: var(--white); line-height: 1;
+    }
+    .stat-value .s { color: var(--gold); }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-top: 4px;
+    }
+    .hero-line {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--purple-mid) 0%, var(--gold) 50%, transparent 100%);
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: linear-gradient(90deg, var(--purple-dim), var(--purple-mid));
+      overflow: hidden; white-space: nowrap; padding: 9px 0;
+    }
+    .ticker-inner { display: inline-block; animation: marquee 28s linear infinite; }
+    .ticker span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+      padding: 0 36px;
+    }
+    .ticker-dot { color: var(--gold); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── SECTIONS ── */
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px; letter-spacing: 4px; color: var(--white);
+    }
+    .section-title .accent { color: var(--gold); }
+    .section-count {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── ROSTER ── */
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 16px;
+    }
+    .player-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 3px; overflow: hidden;
+      cursor: pointer;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      animation: fadeUp .5s forwards; opacity: 0;
+    }
+    .player-card:hover {
+      border-color: var(--gold-dim);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(106,13,173,0.3);
+    }
+    .player-card:hover .card-top-bar { background: linear-gradient(90deg, var(--purple-mid), var(--gold)); }
+    .player-card:nth-child(1) { animation-delay: .04s; }
+    .player-card:nth-child(2) { animation-delay: .09s; }
+    .player-card:nth-child(3) { animation-delay: .14s; }
+    .player-card:nth-child(4) { animation-delay: .19s; }
+    .player-card:nth-child(5) { animation-delay: .24s; }
+    .card-top-bar {
+      height: 3px;
+      background: var(--border);
+      transition: background .25s;
+    }
+    .card-avatar {
+      width: 100%; height: 150px;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-avatar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 50%, rgba(106,13,173,0.1) 50%);
+    }
+    /* subtle diamond shape behind initials */
+    .card-avatar::after {
+      content: '';
+      position: absolute;
+      width: 90px; height: 90px;
+      background: linear-gradient(135deg, rgba(106,13,173,0.15), rgba(240,192,64,0.05));
+      transform: rotate(45deg);
+      border: 1px solid rgba(106,13,173,0.2);
+    }
+    .avatar-initials {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px; letter-spacing: 3px;
+      color: var(--border); position: relative; z-index: 1;
+    }
+    .card-role-badge {
+      position: absolute; bottom: 10px; right: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 3px 8px;
+      background: var(--black);
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+      border-radius: 2px;
+      z-index: 2;
+    }
+    /* captain crown */
+    .captain-flag {
+      position: absolute; top: 10px; left: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 3px 8px;
+      background: linear-gradient(90deg, var(--purple-dim), var(--purple-mid));
+      color: var(--gold);
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .card-body { padding: 15px 17px 18px; }
+    .card-ign {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 2px;
+      color: var(--white); line-height: 1; margin-bottom: 3px;
+    }
+    .card-role-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .card-divider { height: 1px; background: var(--border); margin: 13px 0; }
+    .card-agents-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .card-agents {
+      display: flex; flex-wrap: wrap; gap: 5px;
+    }
+    .agent-chip {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 3px 8px;
+      background: rgba(106,13,173,0.2);
+      color: var(--purple-mid);
+      border: 1px solid rgba(106,13,173,0.3);
+      border-radius: 2px;
+    }
+    .agent-chip.primary {
+      background: rgba(240,192,64,0.12);
+      color: var(--gold);
+      border-color: var(--border-gold);
+    }
+    /* Sean's quote on card */
+    .card-quote {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-style: italic;
+      color: var(--muted); line-height: 1.4;
+      border-left: 2px solid var(--gold);
+      padding-left: 8px; margin-top: 10px;
+    }
+
+    /* ── MATCHES ── */
+    .matches-bg {
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .match-list { display: flex; flex-direction: column; }
+    .match-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 160px 110px 110px;
+      align-items: center; gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s; cursor: pointer;
+    }
+    .match-row:last-child { border-bottom: none; }
+    .match-row:hover { background: rgba(106,13,173,0.06); }
+    .match-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted); line-height: 1.4;
+    }
+    .match-date strong { display: block; font-size: 15px; color: var(--text); }
+    .match-teams { display: flex; align-items: center; gap: 14px; }
+    .match-team {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 21px; letter-spacing: 2px; color: var(--white);
+    }
+    .match-team.us { color: var(--gold); }
+    .match-vs {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; color: var(--muted);
+    }
+    .match-event {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); line-height: 1.4;
+    }
+    .match-map {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .match-status {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 5px 12px;
+      border-radius: 2px; white-space: nowrap;
+      text-align: center;
+    }
+    .status-upcoming {
+      background: rgba(106,13,173,0.15);
+      color: var(--purple-mid);
+      border: 1px solid rgba(106,13,173,0.3);
+    }
+    .status-confirmed {
+      background: rgba(240,192,64,0.1);
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+    }
+    .status-tbd {
+      background: rgba(122,112,144,0.1);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      padding: 56px 40px 28px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 56px; margin-bottom: 48px;
+    }
+    .footer-logo-mark {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--purple-mid), var(--purple-dim));
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 1px;
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+      margin-bottom: 16px;
+    }
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 3px;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .footer-school-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 260px; }
+    .social-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 7px 14px;
+      border: 1px solid var(--border); border-radius: 2px;
+      color: var(--muted); text-decoration: none;
+      transition: all .2s; cursor: pointer; background: transparent;
+    }
+    .social-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+    .social-btn svg { width: 13px; height: 13px; fill: currentColor; }
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      color: var(--text); text-decoration: none; transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 22px; border-top: 1px solid var(--border);
+    }
+    .footer-legal {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 1px; color: var(--muted);
+    }
+    .footer-tags { display: flex; gap: 8px; }
+    .footer-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 3px 9px;
+      border: 1px solid var(--border); border-radius: 2px;
+      color: var(--muted);
+    }
+    .footer-tag.gold {
+      border-color: var(--border-gold);
+      color: var(--gold);
+    }
+
+    /* ── JOIN THE TEAM ── */
+    .join-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .join-lead {
+      font-size: 17px; font-weight: 500;
+      color: var(--text); line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .join-sub {
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+    }
+    .join-contacts { display: flex; flex-direction: column; gap: 12px; }
+    .join-contact-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      text-decoration: none;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .join-contact-card:hover {
+      border-color: var(--gold-dim);
+      background: rgba(240,192,64,0.05);
+      transform: translateX(4px);
+    }
+    .join-contact-avatar {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple-mid), var(--purple-dim));
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 1px;
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+    }
+    .join-contact-info { flex: 1; }
+    .join-contact-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 1px;
+      color: var(--white); margin-bottom: 2px;
+    }
+    .join-contact-email {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+      color: var(--gold);
+    }
+    .join-contact-arrow {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; color: var(--muted);
+      transition: color .2s;
+    }
+    .join-contact-card:hover .join-contact-arrow { color: var(--gold); }
+    @media (max-width: 768px) {
+      .join-inner { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ── COACHING STAFF ── */
+    .coaching-bg {
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .coach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .coach-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 24px;
+      display: flex; align-items: flex-start; gap: 18px;
+      transition: border-color .2s;
+    }
+    .coach-card:hover { border-color: var(--gold-dim); }
+    .coach-avatar {
+      width: 52px; height: 52px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple-mid), var(--purple-dim));
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 1px;
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+    }
+    .coach-info { flex: 1; }
+    .coach-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 2px;
+      color: var(--white); line-height: 1; margin-bottom: 3px;
+    }
+    .coach-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .coach-email {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .coach-email:hover { color: var(--gold); }
+    .coach-email svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeUp .6s forwards; opacity: 0; }
+
+    /* ── STANDINGS ── */
+    .standings-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+    .standings-scroll {
+      height: 520px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      position: relative;
+    }
+    /* Custom scrollbar */
+    .standings-scroll::-webkit-scrollbar { width: 6px; }
+    .standings-scroll::-webkit-scrollbar-track { background: var(--panel); }
+    .standings-scroll::-webkit-scrollbar-thumb {
+      background: var(--purple-mid);
+      border-radius: 3px;
+    }
+    .standings-scroll::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+    .standings-table thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+    .standings-table th {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); padding: 10px 14px;
+      text-align: left;
+      position: sticky; top: 0;
+      background: var(--surface);
+      z-index: 2;
+    }
+    .standings-table th.num { text-align: center; width: 44px; }
+    .standings-table th.right { text-align: right; }
+    .standings-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+      cursor: default;
+    }
+    .standings-table tbody tr:hover { background: rgba(106,13,173,0.07); }
+    /* Riordan highlight row */
+    .standings-table tbody tr.riordan-row {
+      background: rgba(240,192,64,0.07);
+      border-left: 3px solid var(--gold);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .standings-table tbody tr.riordan-row:hover { background: rgba(240,192,64,0.11); }
+    .standings-table td {
+      padding: 11px 14px;
+      font-size: 14px; font-weight: 600;
+      color: var(--text);
+    }
+    .standings-table td.rank {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 1px;
+      color: var(--muted); text-align: center;
+    }
+    .riordan-row td.rank { color: var(--gold); }
+    .td-team-name {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.5px; color: var(--text);
+      line-height: 1.2;
+    }
+    .td-school-name {
+      font-size: 11px; font-weight: 400;
+      color: var(--muted); letter-spacing: 0.3px;
+    }
+    .riordan-row .td-team-name { color: var(--gold); }
+    .td-record {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px; letter-spacing: 1px;
+    }
+    .td-record .w { color: var(--purple-mid); }
+    .riordan-row .td-record .w { color: var(--gold); }
+    .td-record .sep { color: var(--muted); margin: 0 2px; }
+    .td-pct {
+      font-size: 13px; color: var(--muted);
+      text-align: right;
+    }
+    .riordan-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px;
+      background: rgba(240,192,64,0.15);
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+      margin-left: 8px; vertical-align: middle;
+    }
+    .standings-note {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      color: var(--muted); margin-top: 16px; text-align: right;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero, .section-wrap { padding-left: 20px; padding-right: 20px; }
+      .match-row { grid-template-columns: 80px 1fr auto; gap: 10px; }
+      .match-event, .match-map { display: none; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-crest">RV</div>
+    <div class="nav-name">
+      RIORDAN VALORANT
+      <small>Varsity Esports</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#roster">Roster</a></li>
+    <li><a href="#matches">Matches</a></li>
+    <li><a href="#coaching">Coaching</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-badge">Go Crusaders</button>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-glow-a"></div>
+  <div class="hero-glow-b"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Varsity Esports · 2025–26 Season</div>
+    <div class="hero-school">Archbishop Riordan High School</div>
+    <h1 class="hero-title">
+      <span class="dim">RIORDAN</span><br>
+      VAL<span class="accent">O</span>RANT
+    </h1>
+
+    <div class="hero-quote">
+      <div class="hero-quote-mark">"</div>
+      <div>
+        <div class="hero-quote-text">Locking in is a commitment.</div>
+        <div class="hero-quote-attr">— Sean · Duelist / Initiator</div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-value">5<span class="s"> Players</span></span>
+        <span class="stat-label">Active Roster</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">W<span class="s"> Coast</span></span>
+        <span class="stat-label">Region</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">25<span class="s"> Season</span></span>
+        <span class="stat-label">Current Year</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</div>
+
+<!-- ── TICKER ── -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>RIORDAN VALORANT VARSITY <span class="ticker-dot">★</span></span>
+    <span>LOCK IN OR GO HOME <span class="ticker-dot">★</span></span>
+    <span>TONY — IGL — TEAM CAPTAIN <span class="ticker-dot">★</span></span>
+    <span>SEAN — JETT / REYNA / SKYE <span class="ticker-dot">★</span></span>
+    <span>GO CRUSADERS <span class="ticker-dot">★</span></span>
+    <span>RIORDAN VALORANT VARSITY <span class="ticker-dot">★</span></span>
+    <span>LOCK IN OR GO HOME <span class="ticker-dot">★</span></span>
+    <span>TONY — IGL — TEAM CAPTAIN <span class="ticker-dot">★</span></span>
+    <span>SEAN — JETT / REYNA / SKYE <span class="ticker-dot">★</span></span>
+    <span>GO CRUSADERS <span class="ticker-dot">★</span></span>
+  </div>
+</div>
+
+<!-- ── ROSTER ── -->
+<div id="roster">
+  <div class="section-wrap">
+    <div class="section-header">
+      <h2 class="section-title"><span class="accent">//</span> ROSTER</h2>
+      <span class="section-count">2025–26 Varsity Lineup · 5 Players</span>
+    </div>
+    <div class="roster-grid">
+
+      <!-- Tony — Captain / IGL -->
+      <div class="player-card">
+        <div class="card-top-bar"></div>
+        <div class="card-avatar">
+          <div class="captain-flag">⚔ Captain</div>
+          <span class="avatar-initials">TN</span>
+          <div class="card-role-badge">IGL</div>
+        </div>
+        <div class="card-body">
+          <div class="card-ign">TONY</div>
+          <div class="card-role-text">IGL · Team Captain</div>
+          <div class="card-divider"></div>
+          <div class="card-agents-label">Agent Pool</div>
+          <div class="card-agents">
+            <span class="agent-chip primary">Sova</span>
+            <span class="agent-chip">Gekko</span>
+            <span class="agent-chip">Raze</span>
+            <span class="agent-chip">Fade</span>
+            <span class="agent-chip">Tejo</span>
+            <span class="agent-chip">KAY/O</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grady — Flex -->
+      <div class="player-card">
+        <div class="card-top-bar"></div>
+        <div class="card-avatar">
+          <span class="avatar-initials">GR</span>
+          <div class="card-role-badge">Flex</div>
+        </div>
+        <div class="card-body">
+          <div class="card-ign">GRADY</div>
+          <div class="card-role-text">Duelist · Controller · Flex</div>
+          <div class="card-divider"></div>
+          <div class="card-agents-label">Agent Pool</div>
+          <div class="card-agents">
+            <span class="agent-chip primary">Viper</span>
+            <span class="agent-chip">Omen</span>
+            <span class="agent-chip">Waylay</span>
+            <span class="agent-chip">Cypher</span>
+            <span class="agent-chip">Yoru</span>
+            <span class="agent-chip">Chamber</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ian — Sentinel / Initiator -->
+      <div class="player-card">
+        <div class="card-top-bar"></div>
+        <div class="card-avatar">
+          <span class="avatar-initials">IN</span>
+          <div class="card-role-badge">Sentinel</div>
+        </div>
+        <div class="card-body">
+          <div class="card-ign">IAN</div>
+          <div class="card-role-text">Sentinel · Initiator · Controller</div>
+          <div class="card-divider"></div>
+          <div class="card-agents-label">Agent Pool</div>
+          <div class="card-agents">
+            <span class="agent-chip primary">Vyse</span>
+            <span class="agent-chip">Omen</span>
+            <span class="agent-chip">Harbor</span>
+            <span class="agent-chip">Veto</span>
+            <span class="agent-chip">Sova</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leon — Duelist -->
+      <div class="player-card">
+        <div class="card-top-bar"></div>
+        <div class="card-avatar">
+          <span class="avatar-initials">LN</span>
+          <div class="card-role-badge">Duelist</div>
+        </div>
+        <div class="card-body">
+          <div class="card-ign">LEON</div>
+          <div class="card-role-text">Duelist · Controller · Initiator</div>
+          <div class="card-divider"></div>
+          <div class="card-agents-label">Agent Pool</div>
+          <div class="card-agents">
+            <span class="agent-chip primary">Jett</span>
+            <span class="agent-chip primary">Reyna</span>
+            <span class="agent-chip">Yoru</span>
+            <span class="agent-chip">Phoenix</span>
+            <span class="agent-chip">Neon</span>
+            <span class="agent-chip">Raze</span>
+            <span class="agent-chip">Omen</span>
+            <span class="agent-chip">Fade</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sean — Duelist / Initiator -->
+      <div class="player-card">
+        <div class="card-top-bar"></div>
+        <div class="card-avatar">
+          <span class="avatar-initials">SN</span>
+          <div class="card-role-badge">Duelist</div>
+        </div>
+        <div class="card-body">
+          <div class="card-ign">SEAN</div>
+          <div class="card-role-text">Duelist · Initiator</div>
+          <div class="card-divider"></div>
+          <div class="card-agents-label">Agent Pool</div>
+          <div class="card-agents">
+            <span class="agent-chip primary">Jett</span>
+            <span class="agent-chip">Reyna</span>
+            <span class="agent-chip">Skye</span>
+          </div>
+          <div class="card-quote">"Locking in is a commitment."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── MATCHES ── -->
+<div class="matches-bg" id="matches">
+  <div class="section-wrap">
+    <div class="section-header">
+      <h2 class="section-title"><span class="accent">//</span> UPCOMING MATCHES</h2>
+      <span class="section-count">2026 Schedule</span>
+    </div>
+    <div class="match-list">
+
+      <div class="match-row">
+        <div class="match-date"><strong>APR 01</strong>4:00 PM</div>
+        <div class="match-teams">
+          <span class="match-team us">RIORDAN</span>
+          <span class="match-vs">VS</span>
+          <span class="match-team">REV WILDCATS</span>
+        </div>
+        <div class="match-event">Redlands East Valley<br>High School</div>
+        <div class="match-map">TBD</div>
+        <div class="match-status status-confirmed">Confirmed</div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-date"><strong>TBD</strong>&nbsp;</div>
+        <div class="match-teams">
+          <span class="match-team us">RIORDAN</span>
+          <span class="match-vs">VS</span>
+          <span class="match-team">TBD</span>
+        </div>
+        <div class="match-event">Playoffs<br>Awaiting Schedule</div>
+        <div class="match-map">TBD</div>
+        <div class="match-status status-tbd">TBD</div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-date"><strong>TBD</strong>&nbsp;</div>
+        <div class="match-teams">
+          <span class="match-team us">RIORDAN</span>
+          <span class="match-vs">VS</span>
+          <span class="match-team">TBD</span>
+        </div>
+        <div class="match-event">Playoffs<br>Awaiting Schedule</div>
+        <div class="match-map">TBD</div>
+        <div class="match-status status-tbd">TBD</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ── COACHING STAFF ── -->
+<div class="coaching-bg" id="coaching">
+  <div class="section-wrap">
+    <div class="section-header">
+      <h2 class="section-title"><span class="accent">//</span> COACHING STAFF</h2>
+      <span class="section-count">2025–26 Season</span>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card">
+        <div class="coach-avatar">CN</div>
+        <div class="coach-info">
+          <div class="coach-name">CORY NELSON</div>
+          <div class="coach-title">Head Coach</div>
+          <a href="mailto:cnelson@riordanhs.org" class="coach-email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            cnelson@riordanhs.org
+          </a>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-avatar">DR</div>
+        <div class="coach-info">
+          <div class="coach-name">DUKE REEDER</div>
+          <div class="coach-title">Assistant Coach</div>
+          <a href="mailto:dreeder@riordanhs.org" class="coach-email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            dreeder@riordanhs.org
+          </a>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-avatar">PW</div>
+        <div class="coach-info">
+          <div class="coach-name">PEILIN WU</div>
+          <div class="coach-title">Media / Technical Manager</div>
+          <a href="mailto:pwu@riordanhs.org" class="coach-email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            pwu@riordanhs.org
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── JOIN THE TEAM ── -->
+<div id="join">
+  <div class="section-wrap">
+    <div class="section-header">
+      <h2 class="section-title"><span class="accent">//</span> JOIN THE TEAM</h2>
+      <span class="section-count">2025–26 Recruiting</span>
+    </div>
+    <div class="join-inner">
+      <div class="join-text">
+        <p class="join-lead">Are you a Riordan student who plays Valorant? Whether you're a ranked grinder or just getting serious — we want to hear from you.</p>
+        <p class="join-sub">Reach out directly to our coaches to express interest or ask any questions about joining the team.</p>
+      </div>
+      <div class="join-contacts">
+        <a href="mailto:cnelson@riordanhs.org" class="join-contact-card">
+          <div class="join-contact-avatar">CN</div>
+          <div class="join-contact-info">
+            <div class="join-contact-name">Coach Cory Nelson</div>
+            <div class="join-contact-email">cnelson@riordanhs.org</div>
+          </div>
+          <div class="join-contact-arrow">→</div>
+        </a>
+        <a href="mailto:dreeder@riordanhs.org" class="join-contact-card">
+          <div class="join-contact-avatar">DR</div>
+          <div class="join-contact-info">
+            <div class="join-contact-name">Coach Duke Reeder</div>
+            <div class="join-contact-email">dreeder@riordanhs.org</div>
+          </div>
+          <div class="join-contact-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark">RV</div>
+      <div class="footer-name">RIORDAN VALORANT VARSITY</div>
+      <div class="footer-school-tag">Archbishop Riordan High School · San Francisco, CA</div>
+      <p>Competing on the West Coast. Representing the Crusaders with precision, teamwork, and commitment on every map.</p>
+      <div class="social-row">
+        <a href="https://www.twitch.tv/riordan_esports" target="_blank" class="social-btn">
+          <svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+          Twitch
+        </a>
+        <a href="https://www.instagram.com/riordan_esports/" target="_blank" class="social-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+        <a href="https://youtube.com/@riordan_esports" target="_blank" class="social-btn">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Team</h4>
+      <ul>
+        <li><a href="#roster">Roster</a></li>
+        <li><a href="#matches">Matches</a></li>
+        <li><a href="#coaching">Coaching Staff</a></li>
+        <li><a href="#join">Join the Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Riordan</h4>
+      <ul>
+        <li><a href="https://www.riordanhs.org" target="_blank">School Website</a></li>
+        <li><a href="https://www.riordanhs.org/athletics" target="_blank">Athletics</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-legal">© 2025–26 Archbishop Riordan High School · Valorant Varsity</span>
+    <div class="footer-tags">
+      <span class="footer-tag gold">Go Crusaders</span>
+      <span class="footer-tag">West Coast</span>
+      <span class="footer-tag">San Francisco</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
